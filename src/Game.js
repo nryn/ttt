@@ -1,16 +1,14 @@
 function Game() {
-  this.board = {
-    topRow: ["","",""],
-    midRow: ["","",""],
-    botRow: ["","",""]
-  }
+  this.board = [["","",""],
+                ["","",""],
+                ["","",""]]
 };
 
 Game.prototype.isWinHorizontal = function() {
   var that = this;
   var result = false;
-  Object.keys(this.board).forEach(function(row) {
-    if (isWinningCombo(that.board[row]))
+  this.board.forEach(function(row) {
+    if (isWinningCombo(row))
       result = true;
   });
   return result;
@@ -20,9 +18,9 @@ Game.prototype.isWinHorizontal = function() {
 Game.prototype.isWinVertical = function() {
   var that = this;
   var columns = [[],[],[]];
-  Object.keys(this.board).forEach( function(row){
+  this.board.forEach( function(row){
     for (var i = 0; i<3; i++) {
-      columns[i].push(that.board[row][i]);
+      columns[i].push(row[i]);
     };
   });
   var result = false;
@@ -33,6 +31,15 @@ Game.prototype.isWinVertical = function() {
   return result;
 };
 
+
+function checkForWin(enumerable) {
+  var result = false;
+  enumerable.forEach(function(range) {
+    if (isWinningCombo())
+      result = true;
+  });
+  return result;
+};
 
 function isWinningCombo(arr){
    for (var i = 1; i<3; i++) {
