@@ -17,30 +17,6 @@ Game.prototype.isWon = function () {
   return (checkForWin(diagonals) || checkForWin(columns)) || checkForWin(rows)
 };
 
-Game.prototype.isWinDiagonal = function () {
-  var diagonals = [[],[]];
-  for (var i = 0; i<3; i++) {
-    diagonals[0].push(this.board[i][i])
-    diagonals[1].push(this.board[i][2-i])
-  }
-  return checkForWin(diagonals);
-};
-
-Game.prototype.isWinHorizontal = function() {
-  var rows = this.board;
-  return checkForWin(rows);
-};
-
-
-Game.prototype.isWinVertical = function() {
-  var columns = [[],[],[]];
-  this.board.forEach( function(row){
-    for (var i = 0; i<3; i++) { columns[i].push(row[i]) };
-  });
-  return checkForWin(columns);
-};
-
-
 function checkForWin(enumerable) {
   var result = false;
   enumerable.forEach(function(arr) {
