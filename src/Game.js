@@ -4,38 +4,47 @@ function Game() {
                 ["","",""]]
 };
 
+Game.prototype.isWon = function () {
+  var rows = this.board;
+  var diagonals = [[],[]];
+  var columns = [[],[],[]];
+
+  for (var i = 0; i<3; i++) {
+    diagonals[0].push(rows[i][i])
+    diagonals[1].push(rows[i][2-i])
+    for (var x = 0; x<3; x++) { columns[x].push(rows[i][x]) }
+  }
+  return (checkForWin(diagonals) || checkForWin(columns)) || checkForWin(rows)
+};
+
+Game.prototype.isWinDiagonal = function () {
+  var diagonals = [[],[]];
+  for (var i = 0; i<3; i++) {
+    diagonals[0].push(this.board[i][i])
+    diagonals[1].push(this.board[i][2-i])
+  }
+  return checkForWin(diagonals);
+};
+
 Game.prototype.isWinHorizontal = function() {
-  var that = this;
-  var result = false;
-  this.board.forEach(function(row) {
-    if (isWinningCombo(row))
-      result = true;
-  });
-  return result;
+  var rows = this.board;
+  return checkForWin(rows);
 };
 
 
 Game.prototype.isWinVertical = function() {
-  var that = this;
   var columns = [[],[],[]];
   this.board.forEach( function(row){
-    for (var i = 0; i<3; i++) {
-      columns[i].push(row[i]);
-    };
+    for (var i = 0; i<3; i++) { columns[i].push(row[i]) };
   });
-  var result = false;
-  columns.forEach(function(column) {
-    if (isWinningCombo(column))
-      result = true;
-  });
-  return result;
+  return checkForWin(columns);
 };
 
 
 function checkForWin(enumerable) {
   var result = false;
-  enumerable.forEach(function(range) {
-    if (isWinningCombo())
+  enumerable.forEach(function(arr) {
+    if (isWinningCombo(arr))
       result = true;
   });
   return result;
