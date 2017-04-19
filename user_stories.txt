@@ -20,8 +20,7 @@ Objects | Messages
 Turn    | submit co-ords
         | has active player
 Player  | has symbol (O or X)
-Game    | has scores
-        | has map of game board
+Game    | has map of game board
         | start
         | end
         | check for a win
