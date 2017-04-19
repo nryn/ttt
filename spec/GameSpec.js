@@ -12,6 +12,10 @@ describe("Game", function() {
     );
   });
 
+  it("should give us a turn queue with the players", function() {
+    expect(game.playerQueue[0].constructor.name).toEqual("Player");
+  });
+
   describe("isWon", function() {
     it("should be able to check for vertical wins", function() {
       game.board = [["O","X","X"],
@@ -46,6 +50,22 @@ describe("Game", function() {
                     ["X","","O"],
                     ["O","","X"]]
       expect(game.isWon()).toBe(false);
+    });
+
+  });
+
+  describe("play", function() {
+    it("should change the game board when passed co-ordinates", function() {
+      game.play(0,0)
+      expect(game.board).toEqual([
+        ["O","",""],
+        ["","",""],
+        ["","",""]]);
+    });
+
+    it("should throw an error when given the same co-ordinates as a previous turn within the same game", function() {
+      game.play(0,0)
+      expect(function(){game.play(0,0)}).toThrow("That cell is already filled.");
     });
 
   });
