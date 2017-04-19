@@ -1,0 +1,27 @@
+As a player,
+So I can play noughts and crosses,
+I would like to take turns to claim fields
+
+As a player,
+So I can get on with my life,
+I would like the game to end once there is a winner or all spaces are filled.
+
+As a player,
+So I can trust the outcome of the game,
+I would not want to be able to claim a field if it's already taken
+
+As a player,
+So I can play noughts and crosses,
+I would like to be able to win once a row, column, or diagonal set of fields is taken
+
+
+Objects | Messages
+------------------
+Turn    | submit co-ords
+        | has active player
+Player  | has symbol (O or X)
+Game    | has scores
+        | has map of game board
+        | start
+        | end
+        | check for a win
