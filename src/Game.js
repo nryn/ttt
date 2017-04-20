@@ -1,13 +1,10 @@
-function Game(p1 = new Player("O"), p2 = new Player("X")) {
+function Game(p1 = new Player("O"), p2 = new Player("X"), board = new Board()) {
   this.playerQueue = [p1, p2];
-  this.board = [["","",""],
-                ["","",""],
-                ["","",""]]
+  this.board = board;
 };
 
 Game.prototype.play = function(x,y) {
-  if (this.board[y][x] != "") {throw("That cell is already filled.")}
-  this.board[y][x] = this.playerQueue[0].symbol;
+  this.board.set(x,y,this.playerQueue[0].symbol)
   this.switchPlayers();
   if (this.isOver()) {
     // do something to send a message re: game over
@@ -19,20 +16,16 @@ Game.prototype.play = function(x,y) {
   }
 };
 
+Game.prototype.switchPlayers = function() {
+  this.playerQueue.push(this.playerQueue.shift());
+};
+
 Game.prototype.isOver = function() {
-  return this.isWon() || fullUp(this.board)
+  return this.isWon() || this.board.isFull()
 };
 
 Game.prototype.isWon = function () {
-  var rows = this.board;
-  var diagonals = [[],[]];
-  var columns = [[],[],[]];
-  for (var i = 0; i<3; i++) {
-    diagonals[0].push(rows[i][i]);
-    diagonals[1].push(rows[i][2-i]);
-    for (var x = 0; x<3; x++) { columns[x].push(rows[i][x]) }
-  }
-  return (checkForWin(diagonals) || checkForWin(columns)) || checkForWin(rows);
+  return (checkForWin(this.board.diagonals()) || checkForWin(this.board.columns())) || checkForWin(this.board.rows());
 };
 
 function checkForWin(enumerable) {
@@ -50,15 +43,4 @@ function isWinningCombo(arr){
          return false;
    }
    return true;
-};
-
-Game.prototype.switchPlayers = function() {
-  this.playerQueue.push(this.playerQueue.shift());
-};
-
-function fullUp(board){
-  var result = true;
-  board.forEach(function(row) {
-    if (row.includes("")) {result = false;} });
-  return result;
 };

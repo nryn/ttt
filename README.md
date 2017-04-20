@@ -17,7 +17,7 @@ Can be found [here](./user_stories.txt)
 * From here you can start a game with `var myGame = new Game();`
 * You can now play a turn by calling play with co-ordinates like so `myGame.play(x,y)`
   - x and y co-ordinates are 0 indexed. to avoid confusion, check out this diagram of the co-ordinates:
-  
+
   ```
       x 0     1     2
   y        |     |
@@ -28,13 +28,13 @@ Can be found [here](./user_stories.txt)
   2    0,2 | 1,2 | 2,2
            |     |
   ```
-  
+
 * Bonus feature - if you want to play the game only in the console, before you start a game you can make your own players with your own symbols. The purpose of the feature is to be flexible with how the player symbols are represented internally (and externally if you choose to extend the business logic this way).
   - `var player1 = new Player("❌")`
   - `var player2 = new Player("⭕️")`
   - `var myGame = new Game(player1, player2)`
   - `myGame.play(x,y)` as usual.
-  
+
 ### Implementation hints/instructions
 
 * In Game.js there's a `Game.prototype.play` function which gives you some flexibility about how to deal with the game logic.
@@ -42,14 +42,14 @@ Can be found [here](./user_stories.txt)
 * There's comments and logging left in this function pointing out three main things:
   - Where to define what to do after a turn has been taken.
   - Where to define what to do when the game is over (with or without a winner).
-  - The function currently throws an uncaught exception when someone tries to play in to a cell which already has a symbol inside. Wherever you call `play(x,y)` on the game instance, that call could be inside a `try` block, and inside a `catch` you could define what to do in this case.
-  
-* The game board can be 'drawn' by asking for the board property from an instance of a game ( `myGame.board` ).
+  - One of the functions that gets called by `play(x,y)` currently throws an uncaught exception with the message "That cell is already filled." when someone tries to play in to a cell which already has a symbol inside. When you call this function, you could do this from within a `try` block, and a following `catch` block could define what to do in this case.
+
+* The game board can be 'drawn' by asking for the game's board's rows ( `myGame.board.rows()` ).
   - it's an array of arrays of strings
   - inside the first array, each element is an array representing a row from top to bottom
   - each of these arrays contains three strings, representing each 'cell' on a row.
   - the values can be `""` for an empty cell, `"X"` or `"O"`.
-  - you can use `myGame.board.join("\n")` or `myGame.board.toString()` if you'd rather have the game board represented as a string over three lines, or a comma separated list of 9 values respectively.
+  - you can use `myGame.board.rows().join("\n")` or `myGame.board.rows().toString()` if you'd rather have the game board represented as a string over three lines, or a comma separated list of 9 values respectively.
 
 ## Tech
 

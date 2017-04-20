@@ -5,11 +5,7 @@ describe("Game", function() {
   });
 
   it("should have an empty game board to begin", function() {
-    expect(game.board).toEqual(
-      [["","",""],
-       ["","",""],
-       ["","",""]]
-    );
+    expect(game.board.constructor.name).toEqual("Board");
   });
 
   it("should give us a turn queue with the players", function() {
@@ -18,35 +14,35 @@ describe("Game", function() {
 
   describe("isWon", function() {
     it("should be able to check for vertical wins", function() {
-      game.board = [["O","X","X"],
+      game.board.map = [["O","X","X"],
                     ["","X","O"],
                     ["O","X",""]]
       expect(game.isWon()).toBe(true);
     });
 
     it("should be able to check for horizontal wins", function() {
-      game.board = [["","X","X"],
+      game.board.map = [["","X","X"],
                     ["X","",""],
                     ["O","O","O"]]
       expect(game.isWon()).toBe(true);
     });
 
     it("should be able to check for diagonal wins", function() {
-      game.board = [["O","O","X"],
+      game.board.map = [["O","O","X"],
                     ["X","X","O"],
                     ["X","",""]]
       expect(game.isWon()).toBe(true);
     });
 
     it("should be able to check generally for non-wins on complete games", function() {
-      game.board = [["O","X","X"],
+      game.board.map = [["O","X","X"],
                     ["X","O","O"],
                     ["O","X","X"]]
       expect(game.isWon()).toBe(false);
     });
 
     it("should be able to check generally for non-wins on incomplete games", function() {
-      game.board = [["O","X",""],
+      game.board.map = [["O","X",""],
                     ["X","","O"],
                     ["O","","X"]]
       expect(game.isWon()).toBe(false);
@@ -57,7 +53,7 @@ describe("Game", function() {
   describe("play", function() {
     it("should change the game board when passed co-ordinates", function() {
       game.play(0,0)
-      expect(game.board).toEqual([
+      expect(game.board.map).toEqual([
         ["O","",""],
         ["","",""],
         ["","",""]]);
