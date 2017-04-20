@@ -8,7 +8,7 @@ function Game(p1 = new Player("O"), p2 = new Player("X")) {
 Game.prototype.play = function(x,y) {
   if (this.board[y][x] != "") {throw("That cell is already filled.")}
   this.board[y][x] = this.playerQueue[0].symbol;
-  this.playerQueue.push(this.playerQueue.shift());
+  this.switchPlayers();
   if (this.isOver()) {
     // do something to send a message re: game over
     console.log("game over.")
@@ -50,6 +50,10 @@ function isWinningCombo(arr){
          return false;
    }
    return true;
+};
+
+Game.prototype.switchPlayers = function() {
+  this.playerQueue.push(this.playerQueue.shift());
 };
 
 function fullUp(board){

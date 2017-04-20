@@ -70,4 +70,12 @@ describe("Game", function() {
 
   });
 
+  describe("switchPlayers", function() {
+    it("should rearrange the player queue", function() {
+      game.playerQueue = ["X", "O"]
+      game.switchPlayers()
+      expect(game.playerQueue).toEqual(["O","X"])
+    });
+  });
+
 });
