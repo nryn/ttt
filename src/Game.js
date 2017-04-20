@@ -6,8 +6,8 @@ function Game(p1 = new Player("O"), p2 = new Player("X")) {
 };
 
 Game.prototype.play = function(x,y) {
-  if (this.board[x][y] != "") {throw("That cell is already filled.")}
-  this.board[x][y] = this.playerQueue[0].symbol;
+  if (this.board[y][x] != "") {throw("That cell is already filled.")}
+  this.board[y][x] = this.playerQueue[0].symbol;
   this.playerQueue.push(this.playerQueue.shift());
   if (this.isOver()) {
     // do something to send a message re: game over
